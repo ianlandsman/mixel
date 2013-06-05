@@ -48,6 +48,26 @@ class Tracker {
 	}
 
 	/**
+	 * Track an engagement in Mixpanel.
+	 *
+	 * @param  array   $properties
+	 * @param  string  $distinctId
+	 * @param  string  $clientId
+	 * @return void
+	 */
+	public function engage(array $properties, $distinctId, $clientIp)
+	{
+		$payload = array(
+			'$set' => $properties,
+			'$token' => $this->token,
+			'$distinct_id' => $distinctId,
+			'$ip' => $clientIp
+		);
+
+		$this->client->get('/engage/?data='.base64_decode(json_encode($payload)))->send();
+	}
+
+	/**
 	 * Create the payload array for the Mixpanel request.
 	 *
 	 * @param  string  $event
