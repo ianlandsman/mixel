@@ -25,7 +25,7 @@ class Tracker {
 	 * @param  \Guzzle\Http\Client  $client
 	 * @return void
 	 */
-	public function __construt($token, Client $client = null)
+	public function __construct($token, Client $client = null)
 	{
 		$this->token = $token;
 
