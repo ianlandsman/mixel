@@ -67,7 +67,7 @@ class Tracker {
 			'$ip' => $clientIp
 		);
 
-		$this->client->get('/engage/?data='.base64_decode(json_encode($payload)))->send();
+		$this->client->get('/engage/?data='.base64_encode(json_encode($payload)))->send();
 	}
 
 }
