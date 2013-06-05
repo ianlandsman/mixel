@@ -42,7 +42,9 @@ class Tracker {
 	 */
 	public function track($event, array $properties = array(), $token = null)
 	{
-		$payload = $this->createPayload($event, $properties, $token);
+		$payload = compact('event', 'properties');
+
+		$payload['properties']['token'] = $token ?: $this->token;
 
 		$this->client->get('/track/?data='.base64_encode(json_encode($payload)))->send();
 	}
@@ -50,38 +52,22 @@ class Tracker {
 	/**
 	 * Track an engagement in Mixpanel.
 	 *
+	 * @param  string  $type
 	 * @param  array   $properties
 	 * @param  string  $distinctId
 	 * @param  string  $clientId
 	 * @return void
 	 */
-	public function engage(array $properties, $distinctId, $clientIp)
+	public function engage($type, array $properties, $distinctId, $clientIp, $token = null)
 	{
 		$payload = array(
-			'$set' => $properties,
-			'$token' => $this->token,
+			'$'.$type => $properties,
+			'$token' => $token ?: $this->token,
 			'$distinct_id' => $distinctId,
 			'$ip' => $clientIp
 		);
 
 		$this->client->get('/engage/?data='.base64_decode(json_encode($payload)))->send();
-	}
-
-	/**
-	 * Create the payload array for the Mixpanel request.
-	 *
-	 * @param  string  $event
-	 * @param  array   $properties
-	 * @param  string  $token
-	 * @return array
-	 */
-	protected function createPayload($event, array $properties, $token)
-	{
-		$payload = compact('event', 'properties');
-
-		$payload['properties']['token'] = $token ?: $this->token;
-
-		return $payload;
 	}
 
 }
