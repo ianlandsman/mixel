@@ -1,0 +1,20 @@
+{
+    "name": "otwell/mixel",
+    "description": "Simple library for Mixpanel metric tracking (uses Guzzle).",
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylorotwell@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "guzzle/guzzle": "3.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Otwell\\Mixel": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
