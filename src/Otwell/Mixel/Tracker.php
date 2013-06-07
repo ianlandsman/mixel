@@ -61,7 +61,7 @@ class Tracker {
 	public function engage($type, array $properties, $distinctId, $clientIp, $token = null)
 	{
 		$payload = array(
-			'$'.$type => $properties,
+			$type => $properties,
 			'$token' => $token ?: $this->token,
 			'$distinct_id' => $distinctId,
 			'$ip' => $clientIp
